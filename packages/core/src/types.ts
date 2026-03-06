@@ -52,8 +52,11 @@ export interface TransactionInstruction {
   data: string;
 }
 
+export type Chain = "solana" | "evm";
+
 export interface Transaction {
   id: string;
+  chain: Chain;
   status: "pending" | "executed" | "failed";
   instructions?: TransactionInstruction[];
   signers?: string[];
@@ -99,10 +102,12 @@ export interface PatternMetrics {
 }
 
 export interface Token {
-  mint: string;
+  address: string;
   symbol: string;
   decimals: number;
   name?: string;
+  /** @deprecated Use `address` instead */
+  mint?: string;
 }
 
 export interface Price {

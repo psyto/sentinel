@@ -1,15 +1,12 @@
 /**
- * Guard — Transaction security validation and monitoring
+ * Guard — Chain-agnostic transaction security validation and monitoring
  *
- * Detects dangerous patterns in Solana transactions:
- * - P-101: Mint authority kill (irreversible)
- * - P-102: Freeze authority kill (irreversible)
- * - P-103: Signer mismatch (lockout risk)
- * - P-104: Dangerous account close
- * - P-105: Malicious Transfer Hook
- * - P-106: Unexpected hook execution
- * - P-107: Hook reentrancy
- * - P-108: Excessive hook accounts
+ * Solana patterns (P-101 through P-108):
+ * - Mint/freeze authority kills, signer mismatch, dangerous close
+ * - Transfer hook attacks (malicious, unexpected, reentrancy, excessive accounts)
+ *
+ * EVM patterns (EVM-001 through EVM-004):
+ * - Reentrancy attacks, flash loan attacks, front-running, unauthorized access
  *
  * Three enforcement modes: "block", "warn"
  * Three risk tolerances: "strict", "moderate", "permissive"
@@ -132,3 +129,5 @@ export class Guard {
 }
 
 export { analyzeTransaction } from "./detector";
+export { analyzeSolanaTransaction } from "./solana-detector";
+export { analyzeEvmTransaction } from "./evm-detector";

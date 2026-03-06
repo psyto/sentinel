@@ -1,18 +1,29 @@
 // Types
 export * from "./types";
 
-// Guard — transaction security validation
-export { Guard, analyzeTransaction } from "./guard";
-
-// Bundle — Jito bundle management
+// Guard — chain-agnostic transaction security validation
 export {
+  Guard,
+  analyzeTransaction,
+  analyzeSolanaTransaction,
+  analyzeEvmTransaction,
+} from "./guard";
+
+// Bundle — atomic transaction bundle management
+export {
+  BaseBundleManager,
   BundleManager,
   JitoError,
   JITO_TIP_ACCOUNTS,
 } from "./bundle";
-export type { JitoBundle, BundleConfig } from "./bundle";
+export type {
+  BaseBundleConfig,
+  JitoBundle,
+  JitoBundleConfig,
+  BundleConfig,
+} from "./bundle";
 
-// Patterns — execution pattern builders
+// Patterns — execution pattern builders (chain-agnostic)
 export {
   buildBatchPayout,
   buildRecurringPaymentSchedule,
