@@ -1,0 +1,67 @@
+{
+  "name": "Fabrknt DeFi Toolkit",
+  "slug": "fabrknt-defi-toolkit",
+  "description": "Transaction security analysis, execution patterns (batch payouts, DCA, grid trading, rebalancing), and Jito bundle management for Solana dApps.",
+  "category": "developer-tools",
+  "author": "Fabrknt",
+  "version": "0.1.0",
+  "chains": [
+    {
+      "id": "solana",
+      "name": "Solana"
+    }
+  ],
+  "plans": [
+    {
+      "id": "starter",
+      "name": "Starter",
+      "price": 0,
+      "description": "Transaction security analysis and execution pattern builders.",
+      "features": [
+        "Transaction security analysis (8 Solana patterns)",
+        "Batch payout builder",
+        "Recurring payment scheduler",
+        "Token vesting scheduler",
+        "Grid trading planner",
+        "DCA strategy planner",
+        "Portfolio rebalance planner",
+        "100 requests per minute"
+      ],
+      "rpc_methods": [
+        "POST /v1/guard/analyze",
+        "POST /v1/pattern/batch-payout",
+        "POST /v1/pattern/recurring-payment",
+        "POST /v1/pattern/vesting",
+        "POST /v1/pattern/grid-trading",
+        "POST /v1/pattern/dca",
+        "POST /v1/pattern/rebalance"
+      ]
+    },
+    {
+      "id": "pro",
+      "name": "Pro",
+      "price": 49,
+      "description": "All Starter features plus Jito bundle management.",
+      "features": [
+        "All Starter features",
+        "Jito bundle submission",
+        "Bundle status tracking",
+        "Bundle confirmation polling",
+        "Dynamic tip calculation",
+        "200 requests per minute"
+      ],
+      "rpc_methods": [
+        "POST /v1/bundle/submit",
+        "GET /v1/bundle/status/:bundleId",
+        "POST /v1/bundle/tip"
+      ]
+    }
+  ],
+  "healthcheck": "GET /healthcheck",
+  "provisioning": {
+    "provision": "POST /provision",
+    "update": "PUT /provision",
+    "deactivate": "DELETE /provision/deactivate",
+    "deprovision": "DELETE /provision"
+  }
+}
