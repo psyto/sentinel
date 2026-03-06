@@ -1,67 +1,136 @@
 {
   "name": "Fabrknt DeFi Toolkit",
   "slug": "fabrknt-defi-toolkit",
-  "description": "Transaction security analysis, execution patterns (batch payouts, DCA, grid trading, rebalancing), and Jito bundle management for Solana dApps.",
-  "category": "developer-tools",
-  "author": "Fabrknt",
+  "description": "Chain-agnostic transaction security analysis detecting 12 patterns across Solana and EVM. Execution plan builders (DCA, rebalance, grid trading) and Jito bundle management.",
   "version": "0.1.0",
+  "author": "Fabrknt",
+  "category": "developer-tools",
+  "support": {
+    "email": "support@fabrknt.com",
+    "url": "https://fabrknt.com/support"
+  },
+  "repository": "https://github.com/psyto/sentinel",
   "chains": [
     {
       "id": "solana",
       "name": "Solana"
+    },
+    {
+      "id": "ethereum",
+      "name": "Ethereum"
     }
   ],
+  "healthcheck": "/healthcheck",
+  "authentication": "basic",
+  "provisioning": {
+    "provision": "POST /provision",
+    "update": "PUT /update",
+    "deactivate": "DELETE /deactivate_endpoint",
+    "deprovision": "DELETE /deprovision"
+  },
   "plans": [
     {
       "id": "starter",
       "name": "Starter",
       "price": 0,
-      "description": "Transaction security analysis and execution pattern builders.",
+      "description": "Transaction security analysis (12 patterns) and execution plan builders.",
+      "rate_limit": {
+        "requests_per_minute": 100
+      },
       "features": [
-        "Transaction security analysis (8 Solana patterns)",
+        "Transaction security analysis (8 Solana + 4 EVM patterns)",
         "Batch payout builder",
         "Recurring payment scheduler",
         "Token vesting scheduler",
         "Grid trading planner",
         "DCA strategy planner",
-        "Portfolio rebalance planner",
-        "100 requests per minute"
-      ],
-      "rpc_methods": [
-        "POST /v1/guard/analyze",
-        "POST /v1/pattern/batch-payout",
-        "POST /v1/pattern/recurring-payment",
-        "POST /v1/pattern/vesting",
-        "POST /v1/pattern/grid-trading",
-        "POST /v1/pattern/dca",
-        "POST /v1/pattern/rebalance"
+        "Portfolio rebalance planner"
       ]
     },
     {
       "id": "pro",
       "name": "Pro",
       "price": 49,
-      "description": "All Starter features plus Jito bundle management.",
+      "description": "All Starter features plus Jito bundle management and priority support.",
+      "rate_limit": {
+        "requests_per_minute": 200
+      },
       "features": [
         "All Starter features",
         "Jito bundle submission",
         "Bundle status tracking",
         "Bundle confirmation polling",
         "Dynamic tip calculation",
-        "200 requests per minute"
-      ],
-      "rpc_methods": [
-        "POST /v1/bundle/submit",
-        "GET /v1/bundle/status/:bundleId",
-        "POST /v1/bundle/tip"
+        "Priority support"
       ]
     }
   ],
-  "healthcheck": "GET /healthcheck",
-  "provisioning": {
-    "provision": "POST /provision",
-    "update": "PUT /provision",
-    "deactivate": "DELETE /provision/deactivate",
-    "deprovision": "DELETE /provision"
-  }
+  "endpoints": [
+    {
+      "method": "POST",
+      "path": "/v1/guard/analyze",
+      "description": "Analyze a transaction for security patterns (Solana or EVM)",
+      "plan": "starter"
+    },
+    {
+      "method": "POST",
+      "path": "/v1/guard/analyze-raw",
+      "description": "Analyze raw transaction bytes",
+      "plan": "starter"
+    },
+    {
+      "method": "POST",
+      "path": "/v1/pattern/batch-payout",
+      "description": "Build a batch payout execution plan",
+      "plan": "starter"
+    },
+    {
+      "method": "POST",
+      "path": "/v1/pattern/recurring-payment",
+      "description": "Build a recurring payment schedule",
+      "plan": "starter"
+    },
+    {
+      "method": "POST",
+      "path": "/v1/pattern/vesting",
+      "description": "Build a token vesting schedule",
+      "plan": "starter"
+    },
+    {
+      "method": "POST",
+      "path": "/v1/pattern/grid-trading",
+      "description": "Build a grid trading plan",
+      "plan": "starter"
+    },
+    {
+      "method": "POST",
+      "path": "/v1/pattern/dca",
+      "description": "Build a DCA strategy plan",
+      "plan": "starter"
+    },
+    {
+      "method": "POST",
+      "path": "/v1/pattern/rebalance",
+      "description": "Build a portfolio rebalance plan",
+      "plan": "starter"
+    },
+    {
+      "method": "POST",
+      "path": "/v1/bundle/submit",
+      "description": "Submit a Jito bundle",
+      "plan": "pro"
+    },
+    {
+      "method": "GET",
+      "path": "/v1/bundle/status/:bundleId",
+      "description": "Get bundle status",
+      "plan": "pro"
+    },
+    {
+      "method": "POST",
+      "path": "/v1/bundle/tip",
+      "description": "Get recommended Jito tip amount",
+      "plan": "pro"
+    }
+  ]
 }
