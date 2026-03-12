@@ -4,7 +4,7 @@
   "description": "Safe execution infrastructure for blockchain — transaction guard, execution patterns, and Jito bundle management",
   "private": true,
   "scripts": {
-    "prepare": "pnpm run build",
+    "prepare": "cd packages/core && pnpm run build",
     "build": "turbo run build",
     "test": "turbo run test",
     "lint": "turbo run lint",
